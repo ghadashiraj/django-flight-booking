@@ -1,0 +1,102 @@
+{% extends 'adMain.html' %}
+
+{% block admin_content %}
+
+<div class="admin-dashboard-heading">
+    <div>
+        <p class="admin-dashboard-eyebrow">OVERVIEW</p>
+        <h2>Dashboard Overview</h2>
+        <p class="admin-dashboard-subtitle">
+            Manage flights, companies, bookings, and seat reservations.
+        </p>
+    </div>
+</div>
+
+<div class="admin-cards">
+
+    <div class="admin-card admin-stat-card admin-flight-card">
+        <div class="admin-stat-top">
+            <span>Total Flights</span>
+            <div class="admin-stat-icon">✈</div>
+        </div>
+        <strong>{{ flight_count }}</strong>
+        <a href="{% url 'flightList' %}">Manage flights &rarr;</a>
+    </div>
+
+    <div class="admin-card admin-stat-card">
+        <div class="admin-stat-top">
+            <span>Flight Companies</span>
+            <div class="admin-stat-icon">✈</div>
+        </div>
+        <strong>{{ company_count }}</strong>
+        <a href="{% url 'compList' %}">Manage companies &rarr;</a>
+    </div>
+
+    <div class="admin-card admin-stat-card admin-booking-card">
+        <div class="admin-stat-top">
+            <span>Total Bookings</span>
+            <div class="admin-stat-icon">▤</div>
+        </div>
+        <strong>{{ booking_count }}</strong>
+        <a href="{% url 'admin_bookings' %}">View bookings &rarr;</a>
+    </div>
+
+    <div class="admin-card admin-stat-card admin-seat-card">
+        <div class="admin-stat-top">
+            <span>Seat Reservations</span>
+            <div class="admin-stat-icon">▦</div>
+        </div>
+        <strong>{{ seat_count }}</strong>
+        <a href="{% url 'admin_seats' %}">View reservations &rarr;</a>
+    </div>
+
+</div>
+
+<div class="admin-dashboard-bottom">
+
+    <div class="admin-dashboard-info">
+        <h3>QuickSky Admin Panel</h3>
+        <p>
+            Manage airline companies and flight details, and review
+            customer bookings and seat reservations.
+        </p>
+        <p class="admin-dashboard-security">
+            <span class="admin-security-dot"></span>
+            Admin management area
+        </p>
+    </div>
+
+    <div class="admin-quick-actions">
+        <h3>Quick Actions</h3>
+
+        <a href="{% url 'compAdd' %}">
+            <span class="admin-quick-icon">+</span>
+            <span>
+                <strong>Add a Company</strong>
+                <small>Create an airline company</small>
+            </span>
+            <span class="admin-quick-arrow">&rarr;</span>
+        </a>
+
+        <a href="{% url 'flightAdd' %}">
+            <span class="admin-quick-icon">+</span>
+            <span>
+                <strong>Add a Flight</strong>
+                <small>Create a new flight entry</small>
+            </span>
+            <span class="admin-quick-arrow">&rarr;</span>
+        </a>
+
+        <a href="{% url 'admin_bookings' %}">
+            <span class="admin-quick-icon">▤</span>
+            <span>
+                <strong>Review Bookings</strong>
+                <small>View customer booking records</small>
+            </span>
+            <span class="admin-quick-arrow">&rarr;</span>
+        </a>
+    </div>
+
+</div>
+
+{% endblock admin_content %}

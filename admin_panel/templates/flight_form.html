@@ -1,0 +1,112 @@
+
+{% extends 'adMain.html' %}
+
+{% block admin_content %}
+
+<div class="admin-section-title">
+    <div>
+        <h2>{{ heading }}</h2>
+        <p class="admin-page-description">
+            Enter the flight information below.
+        </p>
+    </div>
+</div>
+
+{% if errors %}
+<div class="admin-error admin-error-list">
+    <strong>Please correct these errors:</strong>
+    <ul>
+        {% for error in errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% if not companies %}
+<div class="admin-warning">
+    You must add a company before creating a flight.
+    <a href="{% url 'compAdd' %}">Add Company</a>
+</div>
+{% endif %}
+
+<form method="post" class="admin-form admin-form-grid">
+    {% csrf_token %}
+
+    <div class="admin-field admin-field-full">
+        <label for="flight_company">Flight Company <span>*</span></label>
+        <select id="flight_company" name="flight_company" required>
+            <option value="">Select company</option>
+            {% for company in companies %}
+            <option value="{{ company.id }}"
+                {% if values.flight_company == company.id|stringformat:"s" %}
+                selected
+                {% endif %}>
+                {{ company.flight_company }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="admin-field">
+        <label for="flight_name">Flight Name <span>*</span></label>
+        <input id="flight_name" name="flight_name" type="text"
+               maxlength="100" value="{{ values.flight_name }}" required>
+    </div>
+
+    <div class="admin-field">
+        <label for="flight_number">Flight Number <span>*</span></label>
+        <input id="flight_number" name="flight_number" type="text"
+               maxlength="20" value="{{ values.flight_number }}" required>
+    </div>
+
+    <div class="admin-field">
+        <label for="flight_from">Departure City <span>*</span></label>
+        <input id="flight_from" name="flight_from" type="text"
+               maxlength="100" value="{{ values.flight_from }}" required>
+    </div>
+
+    <div class="admin-field">
+        <label for="flight_to">Destination City <span>*</span></label>
+        <input id="flight_to" name="flight_to" type="text"
+               maxlength="100" value="{{ values.flight_to }}" required>
+    </div>
+
+    <div class="admin-field">
+        <label for="flight_date">Flight Date <span>*</span></label>
+        <input id="flight_date" name="flight_date" type="date"
+               value="{{ values.flight_date }}" required>
+    </div>
+
+    <div class="admin-field">
+        <label for="flight_departure_time">
+            Departure Time <span>*</span>
+        </label>
+        <input id="flight_departure_time" name="flight_departure_time"
+               type="time" value="{{ values.flight_departure_time }}" required>
+    </div>
+
+    <div class="admin-field">
+        <label for="flight_ticket_price">Ticket Price (₹) <span>*</span></label>
+        <input id="flight_ticket_price" name="flight_ticket_price"
+               type="number" min="0" step="0.01"
+               value="{{ values.flight_ticket_price }}" required>
+    </div>
+
+    <div class="admin-field">
+        <label for="total_seats">Total Seats <span>*</span></label>
+        <input id="total_seats" name="total_seats" type="number"
+               min="1" step="1" value="{{ values.total_seats }}" required>
+    </div>
+
+    <div class="admin-form-actions admin-field-full">
+        <button class="admin-button" type="submit"
+                {% if not companies %}disabled{% endif %}>
+            Save Flight
+        </button>
+        <a class="admin-button admin-button-secondary"
+           href="{% url 'flightList' %}">Cancel</a>
+    </div>
+</form>
+
+{% endblock %}

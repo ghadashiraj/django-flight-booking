@@ -1,0 +1,29 @@
+{% extends 'adMain.html' %}
+
+{% block admin_content %}
+<div class="admin-section-title">
+    <h2>{{ heading }}</h2>
+</div>
+
+<form method="post" class="admin-form">
+    {% csrf_token %}
+
+    <p>
+        <label for="seat_number">Seat Number:</label>
+        <input
+            type="text"
+            name="seat_number"
+            id="seat_number"
+            value="{{ seat.seat_number }}"
+            required
+        >
+    </p>
+
+    <div class="admin-form-actions">
+        <button class="admin-button" type="submit">Save</button>
+
+        <a class="admin-button admin-button-secondary"
+           href="{% url 'admin_seats' %}">Cancel</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,97 @@
+
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="history-page">
+
+    <div class="history-header">
+        <h1>Booking History</h1>
+        <p>Review your previous flight reservations.</p>
+    </div>
+
+    <div class="flight-results">
+
+        {% if hData %}
+
+            {% for i in hData %}
+
+                <div class="flight-card">
+
+                    <!-- Passenger Details -->
+                    <div class="flight-info">
+
+                        <div class="flight-company">
+                            Passenger Name: {{ i.pname }}
+                        </div>
+
+                        <div class="flight-name">
+                            <b>Aadhaar No:</b> {{ i.ano }}
+                        </div>
+
+                        <div class="flight-route">
+                            <b>Phone:</b> {{ i.phno }}
+                        </div>
+
+                        <div class="flight-name">
+                            <b>Email:</b> {{ i.email }}
+                        </div>
+
+                        <div class="flight-name">
+                            <b>Seat No:</b> {{ i.sno }}
+                        </div>
+
+                    </div>
+
+                    <!-- Flight Details -->
+                    <div class="flight-info">
+
+                        <div class="flight-company">
+                            ✈ {{ i.flight_company }}
+                        </div>
+
+                        <div class="flight-name">
+                            {{ i.flight_name }} ({{ i.flight_number }})
+                        </div>
+
+                        <div class="flight-route">
+                            {{ i.flight_from }} ➡ {{ i.flight_to }}
+                        </div>
+
+                    </div>
+
+                    <!-- Schedule and Fare -->
+                    <div class="flight-meta">
+
+                        <div class="flight-time">
+                            ⏰ {{ i.flight_departure_time }}
+                        </div>
+
+                        <div class="flight-date">
+                            📅 {{ i.flight_date }}
+                        </div>
+
+                        <div class="flight-price">
+                            ₹{{ i.flight_ticket_price }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="no-results">
+                <h3>No Booking History Yet</h3>
+                <p>Your previous flight reservations will appear here.</p>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock content %}

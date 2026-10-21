@@ -1,0 +1,47 @@
+
+{% extends 'adMain.html' %}
+
+{% block admin_content %}
+<div class="admin-section-title">
+    <h2>Seat Reservations</h2>
+</div>
+
+<div class="admin-table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Passenger</th>
+                <th>Seat</th>
+                <th>Flight</th>
+                <th>Route</th>
+                <th>Date</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for seat in all_seats %}
+            <tr>
+                <td>{{ seat.pname }}</td>
+                <td>{{ seat.seat_number }}</td>
+                <td>{{ seat.flight_name }} ({{ seat.flight_number }})</td>
+                <td>{{ seat.flight_from }} → {{ seat.flight_to }}</td>
+                <td>{{ seat.flight_date }}</td>
+                <td>{{ seat.email }}</td>
+                <td class="admin-actions">
+                    <a href="{% url 'admin_seat_edit' seat.id %}">Edit</a>
+                    <a class="danger-link"
+                       href="{% url 'admin_seat_delete' seat.id %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="admin-empty">
+                    No seat reservations found.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="form-container reset-password-container">
+
+    <div class="reset-password-header">
+        <div class="reset-password-icon">🔐</div>
+        <h2>Reset Password</h2>
+        <p>Update your password to keep your account secure.</p>
+    </div>
+
+    {% if ErrorPass %}
+        <div class="reset-error-message">
+            Entered Wrong Credential
+        </div>
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        {% if done %}
+
+            {% if cErrorPass %}
+                <div class="reset-error-message">
+                    Wrong confirm new password!
+                </div>
+            {% endif %}
+
+            <div class="reset-form-group">
+                <label for="newPass">New Password</label>
+                <input
+                    type="password"
+                    id="newPass"
+                    name="newPass"
+                    placeholder="Enter new password"
+                    required
+                >
+            </div>
+
+            <div class="reset-form-group">
+                <label for="confnewPass">Confirm New Password</label>
+                <input
+                    type="password"
+                    id="confnewPass"
+                    name="confnewPass"
+                    placeholder="Confirm new password"
+                    required
+                >
+            </div>
+
+        {% else %}
+
+            <div class="reset-form-group">
+                <label for="oldPass">Old Password</label>
+                <input
+                    type="password"
+                    id="oldPass"
+                    name="oldPass"
+                    placeholder="Enter old password"
+                    required
+                >
+            </div>
+
+        {% endif %}
+
+        <button type="submit" class="reset-submit-btn">
+            Reset Password
+        </button>
+    </form>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,65 @@
+
+{% extends 'adMain.html' %}
+
+{% block admin_content %}
+
+<div class="admin-section-title">
+    <div>
+        <h2>Manage Flights</h2>
+        <p class="admin-page-description">
+            Manage the flights displayed on your customer website.
+        </p>
+    </div>
+    <div class="admin-toolbar-actions">
+        <a class="admin-button admin-button-secondary"
+           href="{% url 'compList' %}">Manage Companies</a>
+        <a class="admin-button" href="{% url 'flightAdd' %}">
+            + Add Flight
+        </a>
+    </div>
+</div>
+
+<div class="admin-table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Flight</th>
+                <th>Number</th>
+                <th>Route</th>
+                <th>Date</th>
+                <th>Departure</th>
+                <th>Price</th>
+                <th>Seats</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for flight in all_flights %}
+            <tr>
+                <td>{{ flight.flight_company.flight_company }}</td>
+                <td>{{ flight.flight_name }}</td>
+                <td>{{ flight.flight_number }}</td>
+                <td>{{ flight.flight_from }} → {{ flight.flight_to }}</td>
+                <td>{{ flight.flight_date|date:"d M Y" }}</td>
+                <td>{{ flight.flight_departure_time|time:"H:i" }}</td>
+                <td>₹{{ flight.flight_ticket_price }}</td>
+                <td>{{ flight.total_seats }}</td>
+                <td class="admin-actions">
+                    <a href="{% url 'flightEdit' flight.id %}">Edit</a>
+                    <a class="danger-link"
+                       href="{% url 'flightDelete' flight.id %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="9" class="admin-empty">
+                    No flights found. Add a flight to get started.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+
+{% extends 'adMain.html' %}
+
+{% block admin_content %}
+
+<div class="admin-section-title">
+    <div>
+        <h2>{{ heading }}</h2>
+        <p class="admin-page-description">
+            Enter the airline company name.
+        </p>
+    </div>
+</div>
+
+{% if error %}
+<div class="admin-error">{{ error }}</div>
+{% endif %}
+
+<form method="post" class="admin-form">
+    {% csrf_token %}
+
+    <div class="admin-field">
+        <label for="flight_company">Company Name <span>*</span></label>
+        <input
+            type="text"
+            id="flight_company"
+            name="flight_company"
+            maxlength="100"
+            value="{{ company_name }}"
+            placeholder="e.g. IndiGo"
+            required
+        >
+    </div>
+
+    <div class="admin-form-actions">
+        <button type="submit" class="admin-button">Save Company</button>
+        <a href="{% url 'compList' %}"
+           class="admin-button admin-button-secondary">Cancel</a>
+    </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="profile-container">
+
+    <div class="profile-header">
+        <div class="profile-avatar">👤</div>
+        <h1>My Profile</h1>
+        <p>Manage your account information</p>
+    </div>
+
+    <div class="profile-details">
+        <div class="profile-detail">
+            <span class="profile-detail-icon">👤</span>
+            <div>
+                <span class="profile-label">Username</span>
+                <p>{{ request.user }}</p>
+            </div>
+        </div>
+
+        <div class="profile-detail">
+            <span class="profile-detail-icon">📝</span>
+            <div>
+                <span class="profile-label">First Name</span>
+                <p>{{ request.user.first_name|default:"Not provided" }}</p>
+            </div>
+        </div>
+
+        <div class="profile-detail">
+            <span class="profile-detail-icon">📝</span>
+            <div>
+                <span class="profile-label">Last Name</span>
+                <p>{{ request.user.last_name|default:"Not provided" }}</p>
+            </div>
+        </div>
+
+        <div class="profile-detail">
+            <span class="profile-detail-icon">📧</span>
+            <div>
+                <span class="profile-label">Email Address</span>
+                <p>{{ request.user.email|default:"Not provided" }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-actions">
+        <a href="{% url 'upProf' %}" class="profile-btn update-profile-btn">
+            ✏️ Update Profile
+        </a>
+
+        <a href="{% url 'resPass' %}" class="profile-btn reset-password-btn">
+            🔑 Reset Password
+        </a>
+
+        <a href="{% url 'logout' %}" class="profile-btn logout-profile-btn">
+            🔓 Logout
+        </a>
+    </div>
+
+</div>
+{% endblock content %}

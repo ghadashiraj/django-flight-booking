@@ -1,0 +1,29 @@
+
+{% extends 'adMain.html' %}
+
+{% block admin_content %}
+
+<div class="admin-section-title">
+    <h2>{{ heading }}</h2>
+</div>
+
+<div class="admin-confirm-card">
+    <p>
+        Are you sure you want to delete <strong>{{ item }}</strong>?
+    </p>
+
+    {% if warning %}
+    <p class="admin-warning">{{ warning }}</p>
+    {% endif %}
+
+    <form method="post" class="admin-form-actions">
+        {% csrf_token %}
+        <button class="admin-button admin-danger" type="submit">
+            Confirm Delete
+        </button>
+        <a class="admin-button admin-button-secondary"
+           href="{% url cancel_url_name %}">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}

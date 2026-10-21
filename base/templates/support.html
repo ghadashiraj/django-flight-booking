@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="support-page">
+
+    <div class="support-header">
+        <div class="support-icon">🎧</div>
+        <h1>How Can We Help You?</h1>
+        <p>We're here to help you with your flight bookings and travel-related questions.</p>
+    </div>
+
+    <div class="support-cards">
+
+        <div class="support-card">
+            <div class="support-card-icon">✈️</div>
+            <h3>Flight Bookings</h3>
+            <p>Need help with booking tickets, selecting seats, or managing your reservations?</p>
+        </div>
+
+        <div class="support-card">
+            <div class="support-card-icon">📋</div>
+            <h3>Booking Updates</h3>
+            <p>Visit the Bookings page to review your reservations or update passenger details.</p>
+        </div>
+
+        <div class="support-card">
+            <div class="support-card-icon">📞</div>
+            <h3>Contact Support</h3>
+            <p>If you need assistance, contact the support team using the details provided by your service provider.</p>
+        </div>
+
+    </div>
+
+    <div class="support-footer">
+        <h2>We're Here for Your Journey</h2>
+        <p>Thank you for choosing QuickSky Flights. Have a safe and comfortable journey!</p>
+        <a href="{% url 'home' %}" class="support-home-btn">Explore Flights</a>
+    </div>
+
+</div>
+{% endblock content %}

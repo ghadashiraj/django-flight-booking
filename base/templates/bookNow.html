@@ -1,0 +1,169 @@
+
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h2>Flight Booking Page</h2>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <h3>Flight Details</h3>
+
+        <label for="cname">Company Name</label>
+        <input type="text" id="cname"
+               value="{{ flight.flight_company.flight_company }}"
+               readonly><br>
+
+        <label for="fname">Flight Name</label>
+        <input type="text" id="fname"
+               value="{{ flight.flight_name }}"
+               readonly><br>
+
+        <label for="fno">Flight Number</label>
+        <input type="text" id="fno"
+               value="{{ flight.flight_number }}"
+               readonly><br>
+
+        <label for="fromloc">Flight From</label>
+        <input type="text" id="fromloc"
+               value="{{ flight.flight_from }}"
+               readonly><br>
+
+        <label for="to">Flight To</label>
+        <input type="text" id="to"
+               value="{{ flight.flight_to }}"
+               readonly><br>
+
+        <label for="time">Departure Time</label>
+        <input type="text" id="time"
+               value="{{ flight.flight_departure_time }}"
+               readonly><br>
+
+        <label for="date">Date</label>
+        <input type="text" id="date"
+               value="{{ flight.flight_date }}"
+               readonly><br>
+
+        <label for="price">Ticket Price Per Seat</label>
+        <input type="text" id="price"
+               value="{{ flight.flight_ticket_price }}"
+               readonly><br>
+
+        <p>Total seats available: {{ available_seats|length }}</p>
+
+        <hr>
+
+        <h3>Passenger Information</h3>
+
+        <label for="passenger_count">Number of Passengers</label>
+
+        <select id="passenger_count" name="passenger_count">
+            <option value="1">1 Passenger</option>
+            <option value="2">2 Passengers</option>
+            <option value="3">3 Passengers</option>
+            <option value="4">4 Passengers</option>
+            <option value="5">5 Passengers</option>
+        </select>
+
+        {% for number in "12345" %}
+
+            <div class="passenger-section"
+                 data-passenger="{{ forloop.counter }}">      
+                                                               
+
+                <hr>
+
+                <h3>Passenger {{ forloop.counter }}</h3>
+
+                <label for="pname_{{ forloop.counter }}">
+                    Passenger Name
+                </label>
+                <input type="text"
+                       id="pname_{{ forloop.counter }}"
+                       name="pname_{{ forloop.counter }}"
+                       maxlength="100"><br>
+
+                <label for="ano_{{ forloop.counter }}"> Aadhaar Number </label>
+                <input type="text" id="ano_{{ forloop.counter }}" name="ano_{{ forloop.counter }}" maxlength="100"><br>
+
+                <label for="phno_{{ forloop.counter }}"> Phone Number </label>
+                <input type="tel"
+                       id="phno_{{ forloop.counter }}"
+                       name="phno_{{ forloop.counter }}"
+                       maxlength="100"><br>
+
+                <label for="email_{{ forloop.counter }}">
+                    Email
+                </label>
+                <input type="email"
+                       id="email_{{ forloop.counter }}"
+                       name="email_{{ forloop.counter }}"
+                       maxlength="100"><br>
+
+                <label for="sno_{{ forloop.counter }}">
+                    Select Seat
+                </label>
+
+                <select id="sno_{{ forloop.counter }}"
+                        name="sno_{{ forloop.counter }}">
+
+                    <option value="">-- Select a seat --</option>
+
+                    {% for seat in available_seats %}
+                        <option value="{{ seat }}">{{ seat }}</option>
+                    {% endfor %}
+
+                </select>
+
+                <br>
+
+            </div>
+
+        {% endfor %}
+
+        <hr>
+
+        <button type="submit"> Book Tickets</button>
+
+    </form>
+
+</div>
+
+<script>
+    const passengerCount = document.getElementById('passenger_count');
+    const passengerSections = document.querySelectorAll('.passenger-section');
+
+    function updatePassengerForms() {
+        const count = parseInt(passengerCount.value);
+
+        passengerSections.forEach(function(section) {
+            const number = parseInt(section.dataset.passenger);
+            const inputs = section.querySelectorAll('input, select');
+
+            if (number <= count) {
+                section.style.display = '';         
+                 inputs.forEach(function(input) {   
+                    input.disabled = false;
+                });
+            } else {
+                section.style.display = 'none';
+                inputs.forEach(function(input) {
+                    input.disabled = true;
+                });
+            }
+        });
+    }
+
+    passengerCount.addEventListener('change', updatePassengerForms);
+
+    updatePassengerForms();
+</script>
+
+{% endblock content %}

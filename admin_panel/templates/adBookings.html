@@ -1,0 +1,47 @@
+
+{% extends 'adMain.html' %}
+
+{% block admin_content %}
+<div class="admin-section-title">
+    <h2>Bookings</h2>
+    
+</div>
+
+<div class="admin-table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Passenger</th>
+                <th>Flight</th>
+                <th>Route</th>
+                <th>Date</th>
+                <th>Seats</th>
+                <th>Customer</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in all_bookings %}
+            <tr>
+                <td>{{ booking.pname }}</td>
+                <td>{{ booking.flight_name }} ({{ booking.flight_number }})</td>
+                <td>{{ booking.flight_from }} → {{ booking.flight_to }}</td>
+                <td>{{ booking.flight_date }}</td>
+                <td>{{ booking.sno }}</td>
+                <td>{{ booking.host.username }}</td>
+                <td>
+                    <a class="danger-link"
+                       href="{% url 'admin_booking_delete' booking.id %}">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="admin-empty">No bookings found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

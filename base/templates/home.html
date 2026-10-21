@@ -1,0 +1,194 @@
+
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="flight-container">
+
+    {% if flight_search %}
+
+        <!-- Search Results Heading -->
+        <div class="flight-page-header">
+            <h1>Available Flights</h1>
+            <p>Find your flight and book your next journey.</p>
+        </div>
+
+        <div class="flight-results">
+
+            {% if od %}
+
+                {% for i in od %}
+
+                    <div class="flight-card">
+
+                        <!-- Left Side: Flight Details -->
+                        <div class="flight-info">
+
+                            <div class="flight-company">
+                                ✈ {{ i.flight_company }}
+                            </div>
+
+                            <div class="flight-name">
+                                {{ i.flight_name }} ({{ i.flight_number }})
+                            </div>
+
+                            <div class="flight-route">
+                                📍 {{ i.flight_from }} ➡ {{ i.flight_to }}
+                            </div>
+
+                        </div>
+
+                        <!-- Right Side: Time, Date, Price and Booking -->
+                        <div class="flight-meta">
+
+                            <div class="flight-time">
+                                ⏰ {{ i.flight_departure_time }}
+                            </div>
+
+                            <div class="flight-date">
+                                📅 {{ i.flight_date }}
+                            </div>
+
+                            <div class="flight-price">
+                                💰 ₹{{ i.flight_ticket_price }}
+                            </div>
+
+                            <a class="flight-book-btn"
+                               href="{% url 'bookNow' i.id %}">
+                                Book Now
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="no-results">
+                    <h3>No Flights Found</h3>
+                    <p>We couldn't find flights for your search. Please try different cities.</p>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    {% else %}
+
+        <!-- Flight Search Form -->
+        <div class="flight-search-hero">
+
+            <div class="flight-search-heading">
+                <span class="flight-search-label">QUICKSKY FLIGHTS</span>
+                <h1>Your Journey Starts Here</h1>
+                <p>Search available flights and plan your next trip with ease.</p>
+            </div>
+
+            <form class="search-form" action="" method="get">
+
+                <div class="form-group">
+                    <label for="from">From</label>
+                    <input
+                        type="text"
+                        id="from"
+                        name="from"
+                        placeholder="Enter Departure City"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="to">To</label>
+                    <input
+                        type="text"
+                        id="to"
+                        name="to"
+                        placeholder="Enter Destination City"
+                        required
+                    >
+                </div>
+
+                <div class="form-group search-btn">
+                    <label>&nbsp;</label>
+                    <input type="submit" value="Search Flights">
+                </div>
+
+            </form>
+
+        </div>
+
+        <!-- Available Flights Heading -->
+        <div class="flight-page-header">
+            <h1>Available Flights</h1>
+            <p>Explore flights for your next journey.</p>
+        </div>
+
+        <div class="flight-results">
+
+            {% if od %}
+
+                {% for i in od %}
+
+                    <div class="flight-card">
+
+                        <!-- Left Side: Flight Details -->
+                        <div class="flight-info">
+
+                            <div class="flight-company">
+                                ✈ {{ i.flight_company }}
+                            </div>
+
+                            <div class="flight-name">
+                                {{ i.flight_name }} ({{ i.flight_number }})
+                            </div>
+
+                            <div class="flight-route">
+                                📍 {{ i.flight_from }} ➡ {{ i.flight_to }}
+                            </div>
+
+                        </div>
+
+                        <!-- Right Side: Time, Date, Price and Booking -->
+                        <div class="flight-meta">
+
+                            <div class="flight-time">
+                                ⏰ {{ i.flight_departure_time }}
+                            </div>
+
+                            <div class="flight-date">
+                                📅 {{ i.flight_date }}
+                            </div>
+
+                            <div class="flight-price">
+                                💰 ₹{{ i.flight_ticket_price }}
+                            </div>
+
+                            <a class="flight-book-btn"
+                               href="{% url 'bookNow' i.id %}">
+                                Book Now
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="no-results">
+                    <h3>No Flights Available</h3>
+                    <p>There are currently no flights to display.</p>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock content %}

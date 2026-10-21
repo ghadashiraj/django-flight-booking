@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>{% block title %}QuickSky Admin Panel{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'admin.css' %}">
+</head>
+<body>
+    <div class="admin-wrap">
+        {% include 'adNav.html' %}
+
+        {% if messages %}
+            {% for message in messages %}
+                <p class="admin-message admin-message-{{ message.tags }}">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endif %}
+
+        {% block admin_content %}{% endblock admin_content %}
+    </div>
+</body>
+</html>

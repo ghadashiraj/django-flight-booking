@@ -1,0 +1,60 @@
+
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'admin.css' %}">
+
+<div class="admin-wrap">
+    <div class="admin-login-card">
+        <p class="admin-kicker">QUICKSKY FLIGHTS</p>
+        <h1>Admin Registration</h1>
+
+        <p class="admin-register-description">
+            Create your administrator account using the private
+            invitation code provided by the site owner.
+        </p>
+
+        {% if form.non_field_errors %}
+        <div class="admin-error">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="admin-register-field">
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+
+                {{ field }}
+
+                {% if field.help_text %}
+                <small class="admin-help-text">
+                    {{ field.help_text }}
+                </small>
+                {% endif %}
+
+                {% for error in field.errors %}
+                <p class="admin-error">{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            <button class="admin-button admin-register-button" type="submit">
+                Create Admin Account
+            </button>
+        </form>
+
+        <div class="admin-register-link">
+            Already have an admin account?
+            <a href="{% url 'admin_login' %}">Login here</a>
+        </div>
+
+        <div class="admin-register-footer">
+            QUICKSKY FLIGHTS · ADMIN PORTAL
+        </div>
+    </div>
+</div>
+{% endblock %}

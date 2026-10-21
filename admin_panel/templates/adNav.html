@@ -1,0 +1,28 @@
+
+<div class="admin-top">
+    <div>
+        <p class="admin-kicker">QUICKSKY FLIGHTS</p>
+        <h1>Admin Panel</h1>
+    </div>
+
+    {% if request.user.is_authenticated and request.user.is_staff %}
+        <form method="post" action="{% url 'admin_logout' %}">
+            {% csrf_token %}
+            <button class="admin-button admin-button-secondary"
+                    type="submit">
+                Logout
+            </button>
+        </form>
+    {% endif %}
+</div>
+
+{% if request.user.is_authenticated and request.user.is_staff %}
+    <nav class="admin-links">
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'compList' %}">Flight Companies</a>
+        <a href="{% url 'flightList' %}">Manage Flights</a>
+        <a href="{% url 'admin_bookings' %}">Bookings</a>
+        <a href="{% url 'admin_seats' %}">Seat Reservations</a>
+        <a href="{% url 'home' %}">Customer Website</a>
+    </nav>
+{% endif %}

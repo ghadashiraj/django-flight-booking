@@ -1,0 +1,64 @@
+
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'admin.css' %}">
+
+<div class="admin-wrap">
+    <div class="admin-login-card">
+        <p class="admin-kicker">QUICKSKY FLIGHTS</p>
+        <h1>Admin Login</h1>
+
+        <p class="admin-login-description">
+            Sign in to access your flight management dashboard.
+        </p>
+
+        {% if messages %}
+            {% for message in messages %}
+            <p class="admin-success">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        {% if error %}
+        <p class="admin-error">
+            Invalid credentials or this account is not authorized
+            for the admin panel.
+        </p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="admin-login-field">
+                <label for="username">Username</label>
+                <input id="username" type="text" name="username"
+                       autocomplete="username"
+                       placeholder="Enter your username" required>
+            </div>
+
+            <div class="admin-login-field">
+                <label for="password">Password</label>
+                <input id="password" type="password" name="password"
+                       autocomplete="current-password"
+                       placeholder="Enter your password" required>
+            </div>
+
+            <button class="admin-button admin-login-button" type="submit">
+                Login to Admin Panel
+            </button>
+        </form>
+
+        <div class="admin-register-link">
+            Have an admin invitation code?
+            <a href="{% url 'admin_register' %}">
+                Register admin account
+            </a>
+        </div>
+
+        <div class="admin-login-footer">
+            QUICKSKY FLIGHTS · ADMIN PORTAL
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="form-container update-profile-container">
+
+    <div class="update-profile-header">
+        <div class="update-profile-icon">👤</div>
+        <h2>Update Profile</h2>
+        <p>Keep your account information up to date.</p>
+    </div>
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <div class="update-profile-group">
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name"
+                   value="{{ od.first_name }}">
+        </div>
+
+        <div class="update-profile-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" name="last_name"
+                   value="{{ od.last_name }}">
+        </div>
+
+        <div class="update-profile-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email"
+                   value="{{ od.email }}">
+        </div>
+
+        <div class="update-profile-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username"
+                   value="{{ od.username }}" required>
+        </div>
+
+        <button type="submit" class="update-profile-submit">
+            Save Changes
+        </button>
+    </form>
+
+</div>
+{% endblock content %}

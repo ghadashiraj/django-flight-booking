@@ -1,0 +1,100 @@
+
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="bookings-page">
+
+    <div class="bookings-header">
+        <h1>My Bookings</h1>
+        <p>View and manage your flight reservations.</p>
+    </div>
+
+    <div class="flight-results">
+        {% if all_bookings %}
+            {% for i in all_bookings %}
+                <div class="flight-card booking-card">
+
+                    <div class="booking-passenger">
+                        <h3>Passenger Details</h3>
+
+                        <div class="flight-company">
+                            <b>Passenger Name:</b> {{ i.pname }}
+                        </div>
+
+                        <div class="flight-name">
+                            <b>Aadhar No:</b> {{ i.ano }}
+                        </div>
+
+                        <div class="flight-route">
+                            <b>Phone:</b> {{ i.phno }}
+                        </div>
+
+                        <div class="flight-name">
+                            <b>Email:</b> {{ i.email }}
+                        </div>
+
+                        <div class="seat-badge">
+                            Seat No: {{ i.seat_number }}
+                        </div>
+                    </div>
+
+                    <!-- Left Side -->
+                    <div class="booking-flight-info">
+                        <h3>Flight Details</h3>
+
+                        <div class="flight-company">
+                            ✈ {{ i.flight_company }}
+                        </div>
+
+                        <div class="flight-name">
+                            {{ i.flight_name }} ({{ i.flight_number }})
+                        </div>
+
+                        <div class="flight-route booking-route">
+                            {{ i.flight_from }} <span>→</span> {{ i.flight_to }}
+                        </div>
+
+                        <div class="booking-actions">
+                            <a class="booking-btn cancel-btn"
+                               href="{% url 'delBook' i.id %}">
+                                Cancel Booking
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Side -->
+                    <div class="flight-meta booking-meta">
+                        <h3>Schedule & Fare</h3>
+
+                        <div class="flight-time">
+                            ⏰ {{ i.flight_departure_time }}
+                        </div>
+
+                        <div class="flight-date">
+                            📅 {{ i.flight_date }}
+                        </div>
+
+                        <div class="flight-price">
+                            ₹{{ i.flight_ticket_price }}
+                        </div>
+
+                        <div class="booking-actions">
+                            <a class="booking-btn update-btn"
+                               href="{% url 'update' i.id %}">
+                                Update Details
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-bookings">
+                <h3>No Bookings Yet</h3>
+                <p>You don't have any bookings to display. Search for a flight to get started.</p>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock content %}
